@@ -4,6 +4,9 @@ import { CounterButtonsComponent } from '../counter-buttons/counter-buttons.comp
 import { CounterService } from '../../services/counter.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { AppState } from '../state/app.state';
+import { selectCount } from '../state/counter/counter.selector';
 
 @Component({
   selector: 'app-counter',
@@ -16,9 +19,10 @@ export class CounterComponent implements OnInit {
 
   //counter: number = 0;
   counter$!: Observable<number>;
+  count$: Observable<number>;
 
-  constructor(private counterService: CounterService) {
-
+  constructor(private counterService: CounterService, private store: Store<AppState>) {
+    this.count$ = this.store.select(selectCount);
   }
 
 
