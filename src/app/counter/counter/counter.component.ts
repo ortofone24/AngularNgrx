@@ -7,11 +7,13 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AppState } from '../state/app.state';
 import { selectCount } from '../state/counter/counter.selector';
+import { CustomCounterInputComponent } from '../custom-counter-input/custom-counter-input.component';
+
 
 @Component({
   selector: 'app-counter',
   standalone: true,
-  imports: [CounterOutputComponent, CounterButtonsComponent, AsyncPipe, CommonModule],
+  imports: [CounterOutputComponent, CounterButtonsComponent, AsyncPipe, CommonModule, CustomCounterInputComponent],
   templateUrl: './counter.component.html',
   styleUrl: './counter.component.css'
 })
