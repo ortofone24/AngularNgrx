@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../state/app.state';
 import { selectCount } from '../state/counter/counter.selector';
 
+import * as CounterSelectors from '../state/counter/counter.selector';
+
 @Component({
   selector: 'app-counter-output',
   standalone: true,
@@ -32,9 +34,12 @@ export class CounterOutputComponent implements OnInit {
 
   ngOnInit(): void {
     //this.counter$ = this.counterService.counter$;
-    this.counterSubscription = this.store.select('count')
-      .subscribe((data) => {
-        this.counterTwo = data.count;
+    this.counterSubscription = this.store.select(CounterSelectors.getCounter)
+      .subscribe((counter) => {
+
+        console.log('Counter observable Call')
+
+        this.counterTwo = counter;
       })
   }
 

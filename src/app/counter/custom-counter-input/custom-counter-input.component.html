@@ -1,4 +1,14 @@
 <div>
-  <input type="text" placeholder="enter value" [(ngModel)]="value"/>
+  <div class="my-3">
+    {{channelName}} i z observable {{channelName$ | async}}
+  </div>
+  <input type="text" placeholder="enter value" [(ngModel)]="value" />
   <button class="btn btn-primary" (click)="onAdd()">Add to counter</button>
 </div>
+
+
+<div (click)="onChangeChannelName()">
+  <button>ChangeChannelName</button>
+</div>
+
+

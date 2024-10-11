@@ -14,6 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withFetch()),
     provideStore(),
-    provideState({ name: 'count', reducer: counterReducer }),
+    provideState({ name: 'counterState', reducer: counterReducer }),
   ]
 };
