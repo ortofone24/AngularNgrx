@@ -4,9 +4,11 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { provideState, provideStore } from '@ngrx/store';
+import { provideState, provideStore, ActionReducerMap } from '@ngrx/store';
 import { counterReducer } from './counter/state/counter/counter.reducer';
 import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools';
+import { postReducer } from './posts/state/posts.reducer';
+import { appReducer } from './app.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,8 +16,17 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch()),
-    provideStore(),
-    provideState({ name: 'counterState', reducer: counterReducer }),
+    provideStore(appReducer),
+    //provideStore({
+    //  counterState: counterReducer,
+    //  postsState: postReducer
+    //}),
+    //provideState(
+    //  { name: 'counterState', reducer: counterReducer }
+    //),
+    //provideState(
+    //  { name: 'postsState', reducer: postReducer }
+    //),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: false,
