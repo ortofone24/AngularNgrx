@@ -1,5 +1,6 @@
-import { createReducer } from "@ngrx/store";
-import { Post } from "../../shared/models/posts.model"
+import { createReducer, on } from "@ngrx/store";
+import { Post } from "../../shared/models/posts.model";
+import { addPost } from "../state/posts.actions";
 
  
 export interface PostsState {
@@ -23,6 +24,18 @@ export const initialPostsState: PostsState = {
 
 export const postReducer = createReducer(
   initialPostsState,
+  on(addPost, (state, action) => {
 
+    let post = { ...action.post }
+    post.id = (state.posts.length + 1).toString()
+
+    console.log(action)
+
+    console.log(post)
+    return {
+      ...state,
+      posts: [...state.posts, post]
+    }
+  })
 
 )

@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Post } from '../../shared/models/posts.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.state';
+import { addPost } from '../state/posts.actions';
 
 @Component({
   selector: 'app-add-post',
@@ -13,7 +17,7 @@ export class AddPostComponent implements OnInit {
 
   postForm!: FormGroup;
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
 
   ngOnInit(): void {
@@ -53,6 +57,13 @@ export class AddPostComponent implements OnInit {
     if (!this.postForm.valid) {
       return;
     }
+
+    const post: Post = {
+      title: this.postForm.value.title,
+      description: this.postForm.value.description,
+    }
+
+    this.store.dispatch(addPost({ post }))
 
     console.log(this.postForm.value);
   }
