@@ -1,16 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { getPostById } from '../state/posts.selector';
 import { Post } from '../../shared/models/posts.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { updatePost } from '../state/posts.actions';
 
 @Component({
   selector: 'app-edit-post',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './edit-post.component.html',
   styleUrl: './edit-post.component.css'
 })
@@ -22,7 +24,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
   postSubscription!: Subscription;
 
 
-  constructor(private route: ActivatedRoute, private store: Store<AppState>) { }
+  constructor(private route: ActivatedRoute, private store: Store<AppState>, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -53,7 +55,24 @@ export class EditPostComponent implements OnInit, OnDestroy {
     });
   }
 
+  onSubmit() {
+    if (!this.postForm.valid) {
+      return;
+    }
 
+    const title = this.postForm.value.title;
+    const description = this.postForm.value.description;
+
+    const post: Post = {
+      id: this.post?.id,
+      description,
+      title
+    }
+
+    //dispatch the action
+    this.store.dispatch(updatePost({ post }));
+    this.router.navigate(['posts']);
+  }
 
 
   ngOnDestroy(): void {
