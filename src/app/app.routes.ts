@@ -17,11 +17,13 @@ export const routes: Routes = [
   },
   {
     path: 'counter',
-    component: CounterComponent
+    /*component: CounterComponent*/
+    loadComponent: () => import('./counter/counter/counter.component').then((c) => c.CounterComponent)
   },
   {
     path: 'posts',
-    component: PostsListComponent,
+    /*component: PostsListComponent,*/
+    loadComponent: () => import('./posts/posts-list/posts-list.component').then((c) => c.PostsListComponent),
     children: [
       { path: 'add', component: AddPostComponent },
       { path: 'edit/:id', component: EditPostComponent }

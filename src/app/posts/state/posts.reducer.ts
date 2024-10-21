@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { Post } from "../../shared/models/posts.model";
-import { addPost, updatePost } from "../state/posts.actions";
+import { addPost, deletePost, updatePost } from "../state/posts.actions";
 
  
 export interface PostsState {
@@ -47,6 +47,18 @@ export const postReducer = createReducer(
       ...state,
       posts: updatedPosts
     }
+  }),
+  on(deletePost, (state, action) => {
+
+    const updatedPosts = state.posts.filter(post => {
+      return post.id !== action.id;
+    })
+
+    return {
+      ...state,
+      posts: updatedPosts
+    }
   })
+
 
 )
