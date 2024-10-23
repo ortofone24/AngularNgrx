@@ -16,7 +16,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch()),
-    provideStore(appReducer),
+    /*provideStore(appReducer),*/
+    provideStore(),
     //provideStore({
     //  counterState: counterReducer,
     //  postsState: postReducer

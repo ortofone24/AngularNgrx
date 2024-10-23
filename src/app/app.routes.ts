@@ -18,16 +18,22 @@ export const routes: Routes = [
   {
     path: 'counter',
     /*component: CounterComponent*/
-    loadComponent: () => import('./counter/counter/counter.component').then((c) => c.CounterComponent)
+    /*loadComponent: () => import('./counter/counter/counter.component').then((c) => c.CounterComponent)*/
+    loadChildren: () => import('./counter/counter.module').then((c) => c.CounterModule)
   },
   {
     path: 'posts',
     /*component: PostsListComponent,*/
-    loadComponent: () => import('./posts/posts-list/posts-list.component').then((c) => c.PostsListComponent),
-    children: [
-      { path: 'add', component: AddPostComponent },
-      { path: 'edit/:id', component: EditPostComponent }
-    ]
+    //loadComponent: () => import('./posts/posts-list/posts-list.component').then((c) => c.PostsListComponent),
+    //children: [
+    //  { path: 'add', component: AddPostComponent },
+    //  { path: 'edit/:id', component: EditPostComponent }
+    //]
+    loadChildren: () => import('./posts/posts.module').then((c) => c.PostModule)
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((c) => c.AuthModule)
   }
 
 ];
