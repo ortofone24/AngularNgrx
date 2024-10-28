@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AppState } from '../../app.state';
+import { Store } from '@ngrx/store';
+import { loginStart } from '../state/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -23,6 +26,9 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSubmit() {
-    console.log("Hanusia")
+    console.log("Hanusia");
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+    this.store.dispatch(loginStart({ email, password }));
   }
 }
