@@ -10,6 +10,7 @@ import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools'
 import { postReducer } from './posts/state/posts.reducer';
 import { appReducer } from './app.state';
 import { provideEffects } from '@ngrx/effects';
+import { AuthEffects } from './auth/state/auth.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,7 +30,7 @@ export const appConfig: ApplicationConfig = {
     //provideState(
     //  { name: 'postsState', reducer: postReducer }
     //),
-    provideEffects(),
+    provideEffects(AuthEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: false,

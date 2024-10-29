@@ -4,11 +4,15 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AppState } from '../../app.state';
 import { Store } from '@ngrx/store';
 import { loginStart } from '../state/auth.actions';
+import { EffectsModule, provideEffects } from '@ngrx/effects';
+import { AuthEffects } from '../state/auth.effects';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
+  //providers: [provideEffects()],
+
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
