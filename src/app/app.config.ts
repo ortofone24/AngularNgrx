@@ -11,6 +11,8 @@ import { postReducer } from './posts/state/posts.reducer';
 import { appReducer } from './store/app.state';
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './auth/state/auth.effects';
+import { sharedReducer } from './store/shared/shared.state';
+import { SHARED_STATE_NAME } from './store/shared/shared.selector';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,6 +32,9 @@ export const appConfig: ApplicationConfig = {
     //provideState(
     //  { name: 'postsState', reducer: postReducer }
     //),
+    provideState(
+      { name: SHARED_STATE_NAME, reducer: sharedReducer }
+    ),
     provideEffects(AuthEffects),
     provideStoreDevtools({
       maxAge: 25,
