@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AppState } from '../../app.state';
+import { AppState } from '../../store/app.state';
 import { Store } from '@ngrx/store';
 import { loginStart } from '../state/auth.actions';
 import { EffectsModule, provideEffects } from '@ngrx/effects';

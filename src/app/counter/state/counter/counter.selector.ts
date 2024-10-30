@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { AppState } from "../../../app.state";
+import { AppState } from "../../../store/app.state";
 import { CounterState } from "./counter.reducer";
 
 /*-----------------------------------------------------------*/

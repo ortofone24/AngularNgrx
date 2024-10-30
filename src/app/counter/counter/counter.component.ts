@@ -5,7 +5,7 @@ import { CounterService } from '../../services/counter.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.state';
+import { AppState } from '../../store/app.state';
 import { selectCount } from '../state/counter/counter.selector';
 import { CustomCounterInputComponent } from '../custom-counter-input/custom-counter-input.component';
 

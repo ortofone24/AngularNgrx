@@ -8,7 +8,7 @@ import { provideState, provideStore, ActionReducerMap } from '@ngrx/store';
 import { counterReducer } from './counter/state/counter/counter.reducer';
 import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools';
 import { postReducer } from './posts/state/posts.reducer';
-import { appReducer } from './app.state';
+import { appReducer } from './store/app.state';
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './auth/state/auth.effects';
 

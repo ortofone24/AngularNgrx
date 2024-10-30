@@ -3,7 +3,7 @@ import { CounterService } from '../../services/counter.service';
 import { Observable, Subscription } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.state';
+import { AppState } from '../../store/app.state';
 import { selectCount } from '../state/counter/counter.selector';
 
 import * as CounterSelectors from '../state/counter/counter.selector';
