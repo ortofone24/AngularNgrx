@@ -6,7 +6,7 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from './store/app.state';
-import { getLoading } from './store/shared/shared.selector';
+import { getErorrMessage, getLoading } from './store/shared/shared.selector';
 import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
@@ -20,11 +20,14 @@ export class AppComponent implements OnInit {
 
   title = 'AngularNgrx';
   showLoading!: Observable<boolean>
+  errorMessage!: Observable<string>
+
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.showLoading = this.store.select(getLoading)
+    this.errorMessage = this.store.select(getErorrMessage);
   }
 }
 

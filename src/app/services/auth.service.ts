@@ -23,13 +23,25 @@ export class AuthService {
 
     const expirationDate = new Date(new Date().getTime() + +data.expiresIn * 1000);
 
-    const date = "dupadupa"
+    //const date = "dupadupa"
 
     const user = new User(data.email, data.idToken, data.localId, expirationDate);
 
     //console.log(user.expirationDate)
 
     return user;
+  }
+
+  getErrorMessage(message: string) {
+    switch (message) {
+      case 'INVALID_LOGIN_CREDENTIALS':
+        return 'Email not found';
+      case 'INVALID_PASSWORD':
+        return 'Invalid password';
+      default:
+        return 'Unknown error occured. Please try again'
+    }
+    //return null;
   }
 
 }
