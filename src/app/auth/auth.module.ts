@@ -8,12 +8,14 @@ import { AUTH_STATE_NAME } from "./state/auth.selector";
 import { authReducer } from "./state/auth.reducer";
 import { EffectsModule, provideEffects } from "@ngrx/effects";
 import { AuthEffects } from "./state/auth.effects";
+import { SignupComponent } from "./signup/signup.component";
 
 const routes: Routes = [
   {
     path: '', children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path: 'signup', component: SignupComponent }
     ]
   }
 ]
@@ -32,6 +34,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     LoginComponent,
+    SignupComponent
     /*EffectsModule.forFeature([AuthEffects])*/
   ],
     providers: [

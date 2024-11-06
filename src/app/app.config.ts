@@ -13,6 +13,8 @@ import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './auth/state/auth.effects';
 import { sharedReducer } from './store/shared/shared.state';
 import { SHARED_STATE_NAME } from './store/shared/shared.selector';
+import { AUTH_STATE_NAME } from './auth/state/auth.selector';
+import { authReducer } from './auth/state/auth.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,6 +36,9 @@ export const appConfig: ApplicationConfig = {
     //),
     provideState(
       { name: SHARED_STATE_NAME, reducer: sharedReducer }
+    ),
+    provideState(
+      { name: AUTH_STATE_NAME, reducer: authReducer }
     ),
     provideEffects(AuthEffects),
     provideStoreDevtools({
