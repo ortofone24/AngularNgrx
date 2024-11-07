@@ -5,6 +5,9 @@ export const LOGIN_START = '[Auth Page] login start';
 export const LOGIN_SUCCESS = '[Auth Page] login success';
 export const LOGIN_FAIL = '[Auth Page] login fail';
 
+export const SIGNUP_START = '[Auth Page] signup start';
+export const SIGNUP_SUCCESS = '[Auth Page] signup success';
+export const SIGNUP_FAIL = '[Auth Page] signup fail';
 
 
 export const loginStart = createAction(
@@ -17,15 +20,16 @@ export const loginSuccess = createAction(
   props<{ user: User }>()
 )
 
-
 export const loginFail = createAction(LOGIN_FAIL)
 
 
-/*export const ADD_POST_ACTION = '[Posts Page] add post';*/
+export const signupStart = createAction(
+  SIGNUP_START,
+  props<{ email: string, password: string }>()
+)
 
 
-
-//export const addPost = createAction(
-//  ADD_POST_ACTION,
-//  props<{ post: Post }>()
-//)
+export const signupSuccess = createAction(
+  SIGNUP_SUCCESS,
+  props<{ user: User }>()
+)
