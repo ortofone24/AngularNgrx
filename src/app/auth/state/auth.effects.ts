@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { loginStart, loginSuccess } from "./auth.actions";
+import { loginStart, loginSuccess, signupStart, signupSuccess } from "./auth.actions";
 import { catchError, exhaustMap, map, tap } from "rxjs/operators";
 import { AuthService } from "../../services/auth.service";
 import { Store } from "@ngrx/store";
@@ -52,10 +52,46 @@ export class AuthEffects {
   })
 
   loginRedirect$ = createEffect(() => {
-    return this.actions$.pipe(ofType(loginSuccess), tap(action => {
+    return this.actions$.pipe(ofType(...[loginSuccess, signupSuccess]), tap(action => {
+      this.store.dispatch(setErrorMessage({ message: '' }));
       this.router.navigate(['/'])
     }))
 
   }, { dispatch: false })
+
+
+  //mozna zrobic w oftype array
+  //signUpRedirect$ = createEffect(() => {
+  //  return this.actions$.pipe(ofType(signupSuccess), tap(action => {
+  //    this.store.dispatch(setErrorMessage({ message: '' }));
+  //    this.router.navigate(['/'])
+  //  }))
+
+  //}, { dispatch: false })
+
+
+  signUp$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(signupStart),
+      exhaustMap((action) => {
+        return this.authService.signUp(action.email, action.password).pipe(
+          map(data => {
+            this.store.dispatch(setLoadingSpinner({ status: false }))
+            //this.store.dispatch(setErrorMessage({ message: '' }));
+            const user = this.authService.formatUser(data);
+            return signupSuccess({ user })
+          }),
+          catchError((errorResponse) => {
+            this.store.dispatch(setLoadingSpinner({ status: false }));
+
+            console.log(errorResponse.error.error.message);
+
+            const errorMessage = this.authService.getErrorMessage(errorResponse.error.error.message)
+
+            return of(setErrorMessage({ message: errorMessage }))
+          })
+        )
+      }))
+  })
 
 }
