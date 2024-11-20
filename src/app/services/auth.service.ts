@@ -9,8 +9,9 @@ import { User } from "../shared/models/user.model";
 })
 export class AuthService {
 
-  apiKey: string = 'AIzaSyDMtOl1J8ux637gklGHyZOZekIYo-cwQ70'
 
+  apiKey: string = 'AIzaSyDMtOl1J8ux637gklGHyZOZekIYo-cwQ70'
+  timeoutInterval: any;
 
   constructor(private http: HttpClient) { }
 
@@ -52,6 +53,20 @@ export class AuthService {
     //return null;
   }
 
+  setUserInLocalStorage(user: User) {
+    localStorage.setItem('userData', JSON.stringify(user));
+
+    const todaysDate = new Date().getTime();
+    const expirationDate = user.expireDate().getTime();
+    const timeInterval = expirationDate - todaysDate;
+
+    this.timeoutInterval = setTimeout(() => {
+      /*write logout functionality or get the refresh token*/ 
+
+    
+      
+    }, timeInterval)
+
+  }
+
 }
-
-

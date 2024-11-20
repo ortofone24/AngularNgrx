@@ -35,6 +35,8 @@ export class AuthEffects {
             this.store.dispatch(setErrorMessage({ message: '' }));
 
             const user = this.authService.formatUser(data);
+            
+            this.authService.setUserInLocalStorage(user);
 
             return loginSuccess({ user });
           }),
@@ -79,6 +81,7 @@ export class AuthEffects {
             this.store.dispatch(setLoadingSpinner({ status: false }))
             //this.store.dispatch(setErrorMessage({ message: '' }));
             const user = this.authService.formatUser(data);
+            this.authService.setUserInLocalStorage(user);
             return signupSuccess({ user })
           }),
           catchError((errorResponse) => {

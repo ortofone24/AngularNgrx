@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from './store/app.state';
 import { getErorrMessage, getLoading } from './store/shared/shared.selector';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { autoLogin } from './auth/state/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -26,8 +27,9 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.showLoading = this.store.select(getLoading)
+    this.showLoading = this.store.select(getLoading);
     this.errorMessage = this.store.select(getErorrMessage);
+    this.store.dispatch(autoLogin())
   }
 }
 

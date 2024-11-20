@@ -8,7 +8,7 @@ export const LOGIN_FAIL = '[Auth Page] login fail';
 export const SIGNUP_START = '[Auth Page] signup start';
 export const SIGNUP_SUCCESS = '[Auth Page] signup success';
 export const SIGNUP_FAIL = '[Auth Page] signup fail';
-
+export const AUTO_LOGIN = '[Auth Page] auto login';
 
 export const loginStart = createAction(
   LOGIN_START,
@@ -33,3 +33,7 @@ export const signupSuccess = createAction(
   SIGNUP_SUCCESS,
   props<{ user: User }>()
 )
+
+export const autoLogin = createAction(AUTO_LOGIN)
+
+//AUTO_LOGIN

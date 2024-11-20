@@ -6,6 +6,11 @@ export class User {
     private expirationDate: Date
 
   ) { }
+
+  expireDate(){
+    return this.expirationDate;
+  }
+
 }
 
 
