@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { loginStart, loginSuccess, signupStart, signupSuccess } from "./auth.actions";
-import { catchError, exhaustMap, map, tap } from "rxjs/operators";
+import { autoLogin, loginStart, loginSuccess, signupStart, signupSuccess } from "./auth.actions";
+import { catchError, exhaustMap, map, mergeMap, tap } from "rxjs/operators";
 import { AuthService } from "../../services/auth.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store/app.state";
@@ -27,7 +27,6 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(loginStart),
       exhaustMap((action) => {
-
         return this.authService
           .login(action.email, action.password)
           .pipe(map(data => {
@@ -35,7 +34,7 @@ export class AuthEffects {
             this.store.dispatch(setErrorMessage({ message: '' }));
 
             const user = this.authService.formatUser(data);
-            
+
             this.authService.setUserInLocalStorage(user);
 
             return loginSuccess({ user });
@@ -96,5 +95,15 @@ export class AuthEffects {
         )
       }))
   })
+
+  autoLogin$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(autoLogin),
+      map((action) => {
+        const user = this.authService.getUserFromLocalStorage();
+        console.log(user);
+      })
+    )
+  }, { dispatch: false })
 
 }

@@ -10,6 +10,7 @@ import { User } from "../shared/models/user.model";
 export class AuthService {
 
 
+  private isLocalStorageAvailable = typeof localStorage !== 'undefined';
   apiKey: string = 'AIzaSyDMtOl1J8ux637gklGHyZOZekIYo-cwQ70'
   timeoutInterval: any;
 
@@ -30,11 +31,7 @@ export class AuthService {
 
     const expirationDate = new Date(new Date().getTime() + +data.expiresIn * 1000);
 
-    //const date = "dupadupa"
-
     const user = new User(data.email, data.idToken, data.localId, expirationDate);
-
-    //console.log(user.expirationDate)
 
     return user;
   }
@@ -54,19 +51,39 @@ export class AuthService {
   }
 
   setUserInLocalStorage(user: User) {
-    localStorage.setItem('userData', JSON.stringify(user));
+    if(this.isLocalStorageAvailable){
+      localStorage.setItem('userData', JSON.stringify(user));
+      this.runTimeoutInterval(user)
+    }
+  }
 
+  runTimeoutInterval(user: User) {
     const todaysDate = new Date().getTime();
     const expirationDate = user.expireDate().getTime();
     const timeInterval = expirationDate - todaysDate;
 
     this.timeoutInterval = setTimeout(() => {
-      /*write logout functionality or get the refresh token*/ 
+      /*write logout functionality or get the refresh token*/
 
-    
-      
     }, timeInterval)
+  }
 
+  getUserFromLocalStorage() {
+
+    if(this.isLocalStorageAvailable) {
+      const userDataString = localStorage.getItem('userData');
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      const expirationDate = new Date(userData.expirationDate);
+      const user = new User(
+        userData.email, 
+        userData.token, 
+        userData.localId, 
+        expirationDate);
+        this.runTimeoutInterval(user);
+        return user;
+    }}
+      return null;
   }
 
 }
