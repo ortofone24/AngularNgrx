@@ -53,10 +53,12 @@ export class AuthEffects {
   })
 
   loginRedirect$ = createEffect(() => {
-    return this.actions$.pipe(ofType(...[loginSuccess, signupSuccess]), tap(action => {
-      this.store.dispatch(setErrorMessage({ message: '' }));
-      this.router.navigate(['/'])
-    }))
+    return this.actions$.pipe(
+      ofType(...[loginSuccess, signupSuccess]),
+      tap(action => {
+        this.store.dispatch(setErrorMessage({ message: '' }));
+        this.router.navigate(['/'])
+      }))
 
   }, { dispatch: false })
 

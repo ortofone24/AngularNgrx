@@ -30,9 +30,7 @@ export class AuthService {
   formatUser(data: AuthResponseData) {
 
     const expirationDate = new Date(new Date().getTime() + +data.expiresIn * 1000);
-
     const user = new User(data.email, data.idToken, data.localId, expirationDate);
-
     return user;
   }
 
