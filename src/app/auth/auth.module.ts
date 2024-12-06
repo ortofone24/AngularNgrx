@@ -39,7 +39,7 @@ const routes: Routes = [
   ],
     providers: [
       provideState(AUTH_STATE_NAME, authReducer),
-      provideEffects(AuthEffects)
+      //provideEffects(AuthEffects)
   ]
 
 })
