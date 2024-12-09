@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store"
 import { User } from "../../shared/models/user.model"
-import { loginSuccess, signupSuccess } from "./auth.actions"
+import { autoLogout, loginSuccess, signupSuccess } from "./auth.actions"
 
 export interface AuthState {
   user: User | null
@@ -30,6 +30,12 @@ export const authReducer = createReducer(
     return {
       ...state,
       user: action.user
+    }
+  }),
+  on(autoLogout, (state) => {
+    return {
+      ...state,
+      user: null
     }
   })
 )

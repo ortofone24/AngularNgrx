@@ -11,6 +11,9 @@ export class User {
     return this.expirationDate;
   }
 
+  getLocalId() {
+    return this.localId
+  }
 }
 
 

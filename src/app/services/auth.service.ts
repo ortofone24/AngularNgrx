@@ -3,6 +3,9 @@ import { Injectable } from "@angular/core";
 import { AuthResponseData } from "../shared/models/AuthResponseData.model";
 import { Observable } from "rxjs";
 import { User } from "../shared/models/user.model";
+import { Store } from "@ngrx/store";
+import { AppState } from "../store/app.state";
+import { autoLogout } from "../auth/state/auth.actions";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +17,7 @@ export class AuthService {
   apiKey: string = 'AIzaSyDMtOl1J8ux637gklGHyZOZekIYo-cwQ70'
   timeoutInterval: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private store: Store<AppState>) { }
 
   login(email: string, password: string): Observable<AuthResponseData> {
     return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`,
@@ -62,6 +65,7 @@ export class AuthService {
 
     this.timeoutInterval = setTimeout(() => {
       /*write logout functionality or get the refresh token*/
+    this.store.dispatch(autoLogout());
 
     }, timeInterval)
   }
@@ -82,6 +86,16 @@ export class AuthService {
         return user;
     }}
       return null;
+  }
+
+  logout() {
+    if(this.isLocalStorageAvailable) {
+      localStorage.removeItem('userData');
+      if(this.timeoutInterval) {
+        clearTimeout(this.timeoutInterval);
+        this.timeoutInterval = null;
+      }
+    }
   }
 
 }
